@@ -1,4 +1,4 @@
-//Exercício 01
+/* //Exercício 01
 const pessoas = [
     "Ana Peres",
     "Maria Silva",
@@ -139,27 +139,59 @@ const programaEstoque = (objetoEstoque, objetoItensEstoque) => {
     }
 }
 
-programaEstoque(objetoEstoque, objetoItensEstoque);
+programaEstoque(objetoEstoque, objetoItensEstoque); */
 
 
 //Exercício 03
 
-let arrayAlunos = []
+
+
+const programaAcademia = () => {
+    let arrayAlunos = [];
+
+    menu(arrayAlunos);
+}
 
 const cadastrarAluno = (arrayAlunos) => {
     const nome = prompt('Digite o nome do aluno: ');
     const email = prompt('Digite o email do aluno: ');
     const idade = prompt('Digite a idade do aluno: ');
 
-    return [...arrayAlunos, {
+    if (!nome || !email || !idade) {
+        console.log('Erro ao cadastrar aluno. Tente novamente!');
+        cadastrarAluno(arrayAlunos);
+    }
+
+    const aluno = {
         nome,
         email,
         idade,
         atividades: []
-    }];
+    };
+
+    [...arrayAlunos, aluno];
+
+    console.log('Aluno cadastrado com sucesso!');
+    console.log(aluno);
+    programaAcademia();
+
 }
 
-console.log(cadastrarAluno(arrayAlunos));
+const buscarAluno = (arrayAluno) => {
+    const emailBuscado = prompt('Digite o email a ser buscado: ');
+    const aluno = arrayAluno.find(aluno => emailBuscado === aluno.email);
+    if (!aluno) {
+        console.log('Aluno não encontrado');
+        buscarAluno(arrayAluno);
+    }
+    return aluno;
+}
+
+const excluiAluno = (arrayAluno) => {
+    const aluno = buscarAluno(arrayAluno);
+
+    return arrayAluno; //deletar
+}
 
 const menu = (arrayAlunos) => {
     const menuPrograma = parseInt(prompt(`Digite a opção desejada:\n1 - Cadastrar Aluno\n2 - Buscar Aluno\n3 - Excluir Aluno\n4 - Matricular Aluno\n5 - Sair`));
@@ -169,7 +201,7 @@ const menu = (arrayAlunos) => {
             cadastrarAluno(arrayAlunos);
             break;
         case 2:
-            buscarAluno(arrayAlunos);
+            console.log(buscarAluno(arrayAlunos));
             break;
         case 3:
             excluiAluno(arrayAlunos);
@@ -188,7 +220,7 @@ const menu = (arrayAlunos) => {
 
 
 //Exercício 04
-const numeros = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
+/* const numeros = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
 const naipes = ['♣', '♦', '♥', '♠'];
 
 const geraBaralho = (numeros, naipes) => {
@@ -199,11 +231,11 @@ const geraBaralho = (numeros, naipes) => {
     }).join(',');
 
     return cartasBaralho.split(',').sort(() => Math.random() - 0.5);
-};
+}; */
 
 //Exercício 05
 
-const pesquisaArrayTrevos = () => {
+/* const pesquisaArrayTrevos = () => {
     let array = [];
 
     for (let i = 0; i < 100000; i++) {
@@ -217,11 +249,11 @@ const pesquisaArrayTrevos = () => {
 }
 
 
-console.log(pesquisaArrayTrevos());
+console.log(pesquisaArrayTrevos()); */
 
 //Exercício 06
 
-const geraArrayAleatorio = (qtde) => {
+/* const geraArrayAleatorio = (qtde) => {
     let array = [];
     for (let i = 0; i < qtde; i++) {
         array = [...array, Math.floor(Math.random() * qtde * 50)];
@@ -240,11 +272,11 @@ const divisiveisPorTres = (array) => {
     }
 
     return arrayDivisiveis;
-}
+} */
 
 //Exercício 07
 
-const arrayOrdenado = () => {
+/* const arrayOrdenado = () => {
     let arrayNumeros = [];
     for (let i = 0; i < 5; i++) {
         const numero = parseInt(prompt('Digite um número'));
@@ -252,11 +284,11 @@ const arrayOrdenado = () => {
     }
 
     return arrayNumeros.sort((a, b) => a > b ? 1 : -1);
-}
+} */
 
 //Exercício 08
 
-const notasAlunos = [{
+/* const notasAlunos = [{
     nome: 'Jonas',
     notas: {
         historia: [9, 5, 6],
@@ -303,11 +335,11 @@ const calculaMedias = (notasAlunos) => {
     });
 }
 
-console.log(calculaMedias(notasAlunos));
+console.log(calculaMedias(notasAlunos)); */
 
 
 //Exercício 09
-const carrinho = [
+/* const carrinho = [
     {
         produto: 'Camisa branca:',
         quantidade: 4,
@@ -352,9 +384,9 @@ const programaCarrinho = (carrinho) => {
 
     return `O valor da compra foi de R$ ${somaValor}`;
 }
-
+ */
 //Exercício 10
-const restaurantes = [
+/* const restaurantes = [
     {
         nome: 'Pizzaria do Mario',
         horario_abertura: 14,
@@ -393,10 +425,11 @@ const selecionaRestaurantes = (listaRestaurantes) => {
         return rest.horario_abertura <= horaAtual && rest.horario_fechamento > horaAtual;
 
     });
-}
+} */
 
 //Exercício 11
 
+/*
 //Gere chaves e pontuações aleatórias (de 0 a 3 vitórias) para 4 chaves esportivas de 4 países cada e em seguida filtre os 2 melhores times de cada chave que avançarão para a próxima fase.
 
 const paises = ['Afghanistan', 'Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia Herzegovina", "Botswana", "Brazil", "British Virgin Islands", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Cape Verde", "Cayman Islands", "Chad", "Chile", "China", "Colombia", "Congo", "Cook Islands", "Costa Rica", "Cote D Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Estonia", "Ethiopia", "Falkland Islands", "Faroe Islands", "Fiji", "Finland", "France", "French Polynesia", "French West Indies", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kosovo", "Kuwait", "Kyrgyz Republic", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Mauritania", "Mauritius", "Mexico", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Namibia", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Norway", "Oman", "Pakistan", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russia", "Rwanda", "Saint Pierre Miquelon", "Samoa", "San Marino", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "South Africa", "South Korea", "Spain", "Sri Lanka", "St Kitts Nevis", "St Lucia", "St Vincent", "St. Lucia", "Sudan", "Suriname", "Swaziland", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor L'Este", "Togo", "Tonga", "Trinidad Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks Caicos", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "Uruguay", "Uzbekistan", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"];
@@ -463,10 +496,10 @@ const classificados = (paises, chaves, participantes, opcoesDeVitorias) => {
     }
 
     return paisesClassificados;
-}
+}*/
 
 //Exercício 12
-const funcionarios = [
+/* const funcionarios = [
     {
         nome: "Renata",
         area: "Vendas",
@@ -540,4 +573,4 @@ const programaAumentoSalario = (funcionarios) => {
 
     return funcionariosAtualizado;
 
-}
+} */
