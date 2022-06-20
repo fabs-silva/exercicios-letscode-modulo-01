@@ -143,9 +143,6 @@ programaEstoque(objetoEstoque, objetoItensEstoque); */
 
 
 //Exercício 03
-
-
-
 const programaAcademia = () => {
     let arrayAlunos = [];
 
@@ -155,10 +152,15 @@ const programaAcademia = () => {
 const cadastrarAluno = (arrayAlunos) => {
     const nome = prompt('Digite o nome do aluno: ');
     const email = prompt('Digite o email do aluno: ');
-    const idade = prompt('Digite a idade do aluno: ');
+    const idade = parseInt(prompt('Digite a idade do aluno: '));
 
     if (!nome || !email || !idade) {
         console.log('Erro ao cadastrar aluno. Tente novamente!');
+        cadastrarAluno(arrayAlunos);
+    }
+
+    if (buscarAluno(arrayAlunos)) {
+        console.log('Aluno já cadastrado!');
         cadastrarAluno(arrayAlunos);
     }
 
@@ -174,23 +176,103 @@ const cadastrarAluno = (arrayAlunos) => {
     console.log('Aluno cadastrado com sucesso!');
     console.log(aluno);
     programaAcademia();
+}
 
+const funcaoBuscarAluno = (arrayAluno, email) => {
+    const aluno = arrayAluno.find(aluno => emailBuscado === aluno.email);
+
+    return aluno;
 }
 
 const buscarAluno = (arrayAluno) => {
     const emailBuscado = prompt('Digite o email a ser buscado: ');
-    const aluno = arrayAluno.find(aluno => emailBuscado === aluno.email);
+
+    const aluno = funcaoBuscarAluno(arrayAluno, emailBuscado);
+
     if (!aluno) {
         console.log('Aluno não encontrado');
         buscarAluno(arrayAluno);
     }
-    return aluno;
+
+    console.log(aluno);
+    programaAcademia();
 }
 
 const excluiAluno = (arrayAluno) => {
+    const emailBuscado = prompt('Digite o email a ser buscado: ');
+    const aluno = funcaoBuscarAluno(arrayAluno, emailBuscado);
+
+
+    if (!aluno) {
+        console.log('Aluno não encontrado');
+        excluiAluno(arrayAluno);
+    }
+
+    const indexAluno = arrayAluno.findIndex(aluno);
+    console.log(indexAluno);
+
+    //arrayAluno.splice(indexAluno, indexAluno + 1);
+    //console.log('Aluno excluído com sucesso');
+    //programaAcademia();
+}
+
+const estaMatriculado = (aluno, atividade) => {
+    const matricula = aluno.atividades.filter(at => at === atividade);
+
+    if (matricula) {
+        console.log('Aluno já matriculado nessa modalidade');
+    }
+
+    return false;
+}
+
+const escolheAtividade = (aluno) => {
+
+    const listaAtividades = [
+        { atividade: 'Musculação', icone: '🏋️‍♀️', valor: 120 },
+        { atividade: 'Esteira', icone: '🏃', valor: 40 },
+        { atividade: 'Natação', icone: '🏊‍♀️', valor: 50 },
+        { atividade: 'Judô', icone: '🥋', valor: 90 },
+    ];
+
+    const atividade = parseInt(prompt(`Em qual atividade você deseja se matricular: 
+    ${listaAtividades.forEach((at, count = 1) => {
+        `${count}. ${at.atividade} ${at.icone} - R$ ${at.valor.toFixed(2)}`;
+        count++;
+    })} `));
+
+    if (aluno.idade < 14 && atividade === 1) {
+        console.log('Aluno não tem a idade mínima para realizar tal atividade!');
+        return;
+    }
+
+    if (atividade.atividade === 'Esteira' && aluno.atividades.filter(at => at.atividade === 'Musculação')) {
+        console.log('Aluno já matriculado em musculação - esteira incluída!');
+        return;
+    }
+
+    if (atividade.atividade === 'Musculação' && aluno.atividades.filter(at => at.atividade === 'Esteira')) {
+        const indexAtividade = aluno.atividades.findIndex(aluno.atividades.filter(at => at.atividade === 'Esteira'));
+        aluno.atividades.splice(indexAtividade, indexAtividade + 1);
+        console.log('Matrícula em Esteira cancelada!');
+    }
+
+    return atividade;
+}
+
+const matricula = (arrayAluno) => {
     const aluno = buscarAluno(arrayAluno);
 
-    return arrayAluno; //deletar
+    let atividade = escolheAtividade(aluno);
+
+    if (!atividade) {
+        atividade = escolheAtividade(aluno);
+    }
+
+    aluno = { ...aluno, atividades: [...aluno.atividades, atividade] };
+
+    console.log('Aluno matriculado com sucesso');
+
 }
 
 const menu = (arrayAlunos) => {
@@ -201,7 +283,7 @@ const menu = (arrayAlunos) => {
             cadastrarAluno(arrayAlunos);
             break;
         case 2:
-            console.log(buscarAluno(arrayAlunos));
+            buscarAluno(arrayAlunos);
             break;
         case 3:
             excluiAluno(arrayAlunos);
@@ -217,6 +299,8 @@ const menu = (arrayAlunos) => {
             programaAcademia();
     }
 }
+
+programaAcademia();
 
 
 //Exercício 04
